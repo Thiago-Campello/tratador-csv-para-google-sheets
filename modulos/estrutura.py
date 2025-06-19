@@ -20,3 +20,4 @@ def criar_pastas():
             print(f"📁 Subpasta criada: {caminho_completo}")
         else:
             print(f"📁 Subpasta já existe: {caminho_completo}")
+    print()

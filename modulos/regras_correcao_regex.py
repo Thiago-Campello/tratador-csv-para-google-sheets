@@ -13,7 +13,7 @@ regras_de_correcao_regex = {
         (r'atendimentosodontologicos.*são idênticos', 'Ficha CDS odontologico da profissional ( ) da data ( ), está com pacientes duplicados.')
     ],
     'CDS Ficha de Atividade Coletiva': [
-        (r'temasparasaude', 'Atividade Coletiva ( ). É necessário marcar um TEMA e uma PRÁTICA.'),
+        (r'temasparasaude', 'Atividade Coletiva ( ). É necessário marcar um TEMA e/ou PRÁTICA.'),
         (r'cpf.*obrigatório', 'Possível bug no sistema, pois na Atividade em Grupo () da profissional (), todos os participantes possuem ao menos um dos documentos.'),
         (r'inep', 'Na Atividade Coletiva ( ). Caso a atividade não seja efetuado em uma escola, campo de programa saúde na escola e numero INEP não precisão ser alterados, por favor corrigir esses pontos.')
     ],

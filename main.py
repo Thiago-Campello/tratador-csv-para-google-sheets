@@ -1,11 +1,10 @@
-from autenticacao import client
 from modulos.processar_municipio import processar_municipio
 from modulos.estrutura import criar_pastas
 
 def main():
     criar_pastas()
 
-    municipios = ['escada', 'cabo', 'itacuruba', 'teste']
+    municipios = ['escada', 'cabo', 'itacuruba', 'areia', 'teste']
 
     for municipio in municipios:
         print(f"🚀 Iniciando processamento de {municipio}...")

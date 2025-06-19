@@ -1,5 +1,4 @@
 import os
-import pandas as pd
 from dotenv import load_dotenv
 from autenticacao.autenticar_google_sheets import client
 from gspread_dataframe import set_with_dataframe
@@ -19,7 +18,8 @@ def enviar_para_planilha(municipio, df):
         'escada': 0,
         'cabo': 1,
         'itacuruba': 2,
-        'teste': 3
+        'areia': 3,
+        'teste': 4
     }
     try:
         sheet = spreadsheet.get_worksheet(abas.get(municipio))
