@@ -64,5 +64,5 @@ def tratar_csv(caminho):
 
         return df_final
     except Exception as e:
-        print(f"⚠️ Erro ao tratar CSV: {e}")
+        print(f"Erro ao tratar CSV: {e}")
         return None

@@ -10,10 +10,10 @@ def listar_csvs(municipio):
         dir_path = os.path.join(diretorio, arquivo)
 
         if not os.path.exists(dir_path):
-            print(f"🚨 Arquivo não encontrado: {dir_path}")
+            print(f"Arquivo não encontrado: {dir_path}")
             continue
 
         arquivos.append(dir_path)
-        print(f'📄 Lendo arquivo: {dir_path}')
+        print(f'Lendo arquivo: {dir_path}')
     
     return arquivos
