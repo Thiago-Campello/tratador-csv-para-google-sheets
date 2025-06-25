@@ -11,7 +11,7 @@ def criar_pastas():
         print(f"📁 Pasta principal já existe: {base_path}")
 
     # Subpastas que serão criadas dentro da pasta principal
-    subpastas = ['escada', 'cabo', 'itacuruba']
+    subpastas = ['escada', 'cabo', 'itacuruba', 'areia']
 
     for pasta in subpastas:
         caminho_completo = os.path.join(base_path, pasta)
