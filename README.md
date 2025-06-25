@@ -3,9 +3,10 @@
 Este projeto automatiza o processo de:
 1. **Leitura de arquivos CSV** organizados por município.
 2. **Tratamento e filtragem** de dados relevantes.
+3. **Gera mensagens automáticas** para correção dos dados
 3. **Envio automático para abas específicas** de uma planilha no Google Sheets.
 
-Foi desenvolvido como ferramenta pessoal para agilizar demandas internas, e está disponível no GitHub para que colegas da empresa também possam utilizá-lo facilmente.
+Foi desenvolvido como ferramenta pessoal para agilizar demandas internas de trabalho.
 
 ---
 
@@ -74,8 +75,10 @@ tratador-csv-para-google-sheets/
 │   ├── estrutura.py
 │   ├── listar_csvs.py
 │   ├── processar_municipio.py
+│   ├── regras_correcao_regex.py
 │   └── tratamento.py
 ├── relatorios-csv/
+│   ├──  areia/
 │   ├── escada/
 │   ├── cabo/
 │   └── itacuruba/
@@ -107,6 +110,7 @@ O script irá:
 * Criar as pastas necessárias (caso não existam).
 * Ler os CSVs dentro de `relatorios-csv/{municipio}/`.
 * Tratar os dados, removendo entradas desnecessárias.
+* Gerar mensagens automáticas para auxiliar na correção.
 * Enviar os dados para a aba correta da planilha.
 * Excluir os arquivos após o envio.
 
