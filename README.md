@@ -1,40 +1,48 @@
-# 🧹 Tratador de CSV para Google Sheets
+# SheetBot
 
-Este projeto automatiza o processo de:
-1. **Leitura de arquivos CSV** organizados por município.
-2. **Tratamento e filtragem** de dados relevantes.
-3. **Envio automático para abas específicas** de uma planilha no Google Sheets.
-
-Foi desenvolvido como ferramenta pessoal para agilizar demandas internas, e está disponível no GitHub para que colegas da empresa também possam utilizá-lo facilmente.
+Automatizador inteligente de arquivos CSV para Google Sheets.  
+Projetado para validar, corrigir e sincronizar dados de produção em saúde pública de forma eficiente e segura.
 
 ---
 
-## 🚀 Requisitos
+## O que o SheetBot faz?
+
+1. **Lê arquivos `.csv`** organizados por município
+2. **Filtra dados e remove** registros irrelevantes
+3. Gera **mensagens automáticas** de **correção com base em regras de regex**
+4. **Envia os dados para a aba correta de uma planilha** Google Sheets via API
+5. **Remove os arquivos** após o envio com sucesso
+
+Desenvolvido inicialmente como ferramenta interna para agilizar demandas manuais do dia a dia.
+
+---
+
+## Requisitos
 
 - Python 3.10 ou superior  
-- Conta Google com permissão de edição na planilha destino  
-- Cada usuário deve possuir **suas próprias credenciais** da API do Google
+- Conta Google com permissão de edição na planilha  
+- Credenciais da API do Google (conta de serviço)
 
 ---
 
-## 📦 Instalação
+## Instalação
 
-1. Clone o repositório:
+### 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/Thiago-Campello/tratador-csv-para-google-sheets.git
-cd tratador-csv-para-google-sheets
+git clone https://github.com/SeuUsuario/sheetbot.git
+cd sheetbot
 ````
 
-2. Crie um ambiente virtual (recomendado):
+### 2. Crie um ambiente virtual:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-.venv\Scripts\activate     # Windows
+source .venv/bin/activate   # Linux/macOS
+.venv\Scripts\activate      # Windows
 ```
 
-3. Instale as dependências:
+### 3. Instale as dependências:
 
 ```bash
 pip install -r requirements.txt
@@ -42,27 +50,50 @@ pip install -r requirements.txt
 
 ---
 
-## 🔐 Configuração das Credenciais Google
+## Configuração das Credenciais Google
 
-Cada usuário deve:
+1. Acesse o [Google Cloud Console](https://console.cloud.google.com/)
+2. Crie um projeto e ative:
 
-1. Acessar [Google Cloud Console](https://console.cloud.google.com/).
-2. Criar um projeto e ativar as seguintes APIs:
-
-   * Google Sheets API
-   * Google Drive API
-3. Ir em **IAM & Admin > Service Accounts**, criar uma nova conta de serviço.
-4. Gerar e baixar a chave JSON da conta de serviço.
-5. **Compartilhar a planilha do Google Sheets com o e-mail da conta de serviço** (ex: `xxxx@xxxx.iam.gserviceaccount.com`) com permissão de edição.
-
-> ⚠️ Por questões de segurança, **não compartilhe sua credencial com outras pessoas.**
+   * **Google Sheets API**
+   * **Google Drive API**
+3. Crie uma conta de serviço (`IAM & Admin > Service Accounts`)
+4. Gere uma chave JSON da conta de serviço
+5. Compartilhe a planilha do Google Sheets com o e-mail da conta de serviço com permissão de edição
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Arquivo `.env`
+
+Crie um arquivo `.env` com as variáveis de ambiente:
+
+```env
+CAMINHO_CREDENCIAL=autenticacao/credentials.json
+NOME_PLANILHA=Nome exato da sua planilha Google Sheets
+```
+
+---
+
+## Como rodar
+
+```bash
+python main.py
+```
+
+O script irá:
+
+* Criar as pastas necessárias
+* Ler os CSVs em `relatorios-csv/{municipio}/`
+* Tratar os dados e gerar mensagens de correção automáticas
+* Enviar os dados para a aba correta da planilha
+* Excluir os arquivos processados
+
+---
+
+## Estrutura de Diretórios
 
 ```
-tratador-csv-para-google-sheets/
+sheetbot/
 ├── main.py
 ├── .env
 ├── requirements.txt
@@ -74,55 +105,32 @@ tratador-csv-para-google-sheets/
 │   ├── estrutura.py
 │   ├── listar_csvs.py
 │   ├── processar_municipio.py
+│   ├── regras_correcao_regex.py
 │   └── tratamento.py
-├── relatorios-csv/
-│   ├── escada/
-│   ├── cabo/
-│   └── itacuruba/
+└── relatorios-csv/
+    ├── areia/
+    ├── escada/
+    ├── cabo/
+    └── itacuruba/
 ```
+---
+
+## Possíveis Erros
+
+* **403 PERMISSION\_DENIED**: verifique se a planilha foi compartilhada com o e-mail da conta de serviço
+* **Erro de encoding**: certifique-se de que o CSV está em UTF-8
+* **Dados não enviados**: confirme o nome do município e a existência da aba correspondente na planilha
 
 ---
 
-## ⚙️ Configuração do `.env`
+## Autor
 
-Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+**Thiago Campello**
+Desenvolvedor Python focado em automações e dados.
 
-```env
-CAMINHO_CREDENCIAL=autenticacao/credentials.json
-NOME_PLANILHA=Nome exato da sua planilha no Google Sheets
-```
+🔗 [Thiago Campello](https://www.linkedin.com/in/thiago-campello/)
 
----
-
-## ▶️ Como Rodar
-
-Execute o script principal:
-
-```bash
-python main.py
-```
-
-O script irá:
-
-* Criar as pastas necessárias (caso não existam).
-* Ler os CSVs dentro de `relatorios-csv/{municipio}/`.
-* Tratar os dados, removendo entradas desnecessárias.
-* Enviar os dados para a aba correta da planilha.
-* Excluir os arquivos após o envio.
-
----
-
-## 🛟 Possíveis Problemas
-
-* **403 PERMISSION\_DENIED**: verifique se a planilha foi compartilhada com a conta de serviço correta.
-* **Erro de encoding**: os arquivos CSV devem estar em UTF-8 ou similar.
-* **Dados não enviados**: verifique se o nome do município está correto e se a aba correspondente existe na planilha.
-
----
-
-## 👥 Autor
-
-* [Thiago Campello](https://github.com/Thiago-Campello)
+📂 [github.com/Thiago-Campello/sheetbot](https://github.com/Thiago-Campello/sheetbot)
 
 ---
 
